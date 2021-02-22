@@ -1,14 +1,15 @@
 import sys
+from ui_file import Ui_MainWindow
 from random import randint
 from PyQt5 import uic
 from PyQt5.QtGui import QPainter, QColor, QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
 
-class Example(QMainWindow):
+class Example(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)  # Загружаем дизайн
+        self.setupUi(self)
         self.btn.clicked.connect(self.paint)
         self.pixmap = None
 
@@ -19,7 +20,7 @@ class Example(QMainWindow):
             self.pixmap.fill(QColor(255, 255, 255))
         # Начинаем процесс рисования
         qp.begin(self.pixmap)
-        qp.setBrush(QColor(255, 255, 0))
+        qp.setBrush(QColor(randint(0, 255), randint(0, 255), randint(0, 255)))
         r = randint(10, 200)
         x = randint(10, max(11, self.pixmap.width() - r))
         y = randint(10, max(11, self.pixmap.height() - r))
